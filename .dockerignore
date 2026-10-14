@@ -1,0 +1,34 @@
+# Version Control
+.git/
+.gitignore
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Environment Secrets (never copy local .env into images)
+.env
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Caches & OS Artifacts
+.ruff_cache/
+.pytest_cache/
+.DS_Store
+Thumbs.db
+
+# Gradio Temp
+gradio_cached_examples/
+flagged/

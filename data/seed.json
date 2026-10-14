@@ -1,0 +1,176 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "name": "Maruti Suzuki Swift",
+      "brand": "Maruti Suzuki",
+      "segment": "Hatchback",
+      "price_lakh": {"min": 6.49, "max": 9.64},
+      "fuel_type": ["Petrol", "CNG"],
+      "mileage_kmpl": {"petrol": 23.76, "cng": 30.90},
+      "engine_cc": 1197,
+      "seating": 5,
+      "transmission": ["Manual", "Automatic"],
+      "features": ["Touchscreen Infotainment", "Apple CarPlay", "Android Auto", "Rear Camera", "Keyless Entry"],
+      "service_interval_km": 10000,
+      "popular_in": ["City", "Highway"],
+      "best_for": ["First-time buyers", "Daily commute", "Small families"]
+    },
+    {
+      "id": 2,
+      "name": "Hyundai Creta",
+      "brand": "Hyundai",
+      "segment": "Mid-Size SUV",
+      "price_lakh": {"min": 11.00, "max": 20.15},
+      "fuel_type": ["Petrol", "Diesel"],
+      "mileage_kmpl": {"petrol": 17.4, "diesel": 21.8},
+      "engine_cc": 1497,
+      "seating": 5,
+      "transmission": ["Manual", "Automatic", "DCT"],
+      "features": ["Panoramic Sunroof", "ADAS", "360 Camera", "Ventilated Seats", "Wireless Charging"],
+      "service_interval_km": 10000,
+      "popular_in": ["City", "Highway", "Off-road light"],
+      "best_for": ["Families", "Long drives", "Tech enthusiasts"]
+    },
+    {
+      "id": 3,
+      "name": "Tata Nexon EV",
+      "brand": "Tata Motors",
+      "segment": "Compact SUV EV",
+      "price_lakh": {"min": 14.49, "max": 19.49},
+      "fuel_type": ["EV"],
+      "mileage_kmpl": {"ev_range_km": 465},
+      "engine_cc": null,
+      "seating": 5,
+      "transmission": ["Automatic"],
+      "features": ["Connected Car Tech", "ADAS", "Sunroof", "Fast Charging", "Vehicle-to-Load"],
+      "service_interval_km": 15000,
+      "popular_in": ["City", "Highway"],
+      "best_for": ["Eco-conscious buyers", "City driving", "Tech lovers"]
+    },
+    {
+      "id": 4,
+      "name": "Honda City",
+      "brand": "Honda",
+      "segment": "Sedan",
+      "price_lakh": {"min": 11.76, "max": 15.74},
+      "fuel_type": ["Petrol", "Hybrid"],
+      "mileage_kmpl": {"petrol": 17.8, "hybrid": 26.5},
+      "engine_cc": 1498,
+      "seating": 5,
+      "transmission": ["Manual", "CVT"],
+      "features": ["LaneWatch Camera", "Honda Sensing", "Wireless Charger", "Sunroof", "LED Lights"],
+      "service_interval_km": 10000,
+      "popular_in": ["City", "Highway"],
+      "best_for": ["Professionals", "Long drives", "Premium buyers"]
+    },
+    {
+      "id": 5,
+      "name": "Toyota Innova Hycross",
+      "brand": "Toyota",
+      "segment": "MUV",
+      "price_lakh": {"min": 18.99, "max": 30.99},
+      "fuel_type": ["Petrol", "Hybrid"],
+      "mileage_kmpl": {"petrol": 16.13, "hybrid": 21.1},
+      "engine_cc": 1987,
+      "seating": 7,
+      "transmission": ["Automatic", "CVT"],
+      "features": ["Panoramic Sunroof", "Captain Seats", "ADAS", "Ottoman Seats", "HUD"],
+      "service_interval_km": 10000,
+      "popular_in": ["Highway", "Family trips"],
+      "best_for": ["Large families", "Business travel", "Premium segment"]
+    },
+    {
+      "id": 6,
+      "name": "Mahindra Scorpio-N",
+      "brand": "Mahindra",
+      "segment": "SUV",
+      "price_lakh": {"min": 13.96, "max": 24.54},
+      "fuel_type": ["Petrol", "Diesel"],
+      "mileage_kmpl": {"petrol": 15.0, "diesel": 16.8},
+      "engine_cc": 2198,
+      "seating": 7,
+      "transmission": ["Manual", "Automatic"],
+      "features": ["ADAS", "Terrain Modes", "4WD", "Sony Sound System", "Panoramic Sunroof"],
+      "service_interval_km": 10000,
+      "popular_in": ["Highway", "Off-road", "Rural"],
+      "best_for": ["Adventure lovers", "Off-road", "Large families"]
+    },
+    {
+      "id": 7,
+      "name": "Kia Seltos",
+      "brand": "Kia",
+      "segment": "Compact SUV",
+      "price_lakh": {"min": 10.90, "max": 20.45},
+      "fuel_type": ["Petrol", "Diesel"],
+      "mileage_kmpl": {"petrol": 16.5, "diesel": 21.0},
+      "engine_cc": 1497,
+      "seating": 5,
+      "transmission": ["Manual", "Automatic", "DCT"],
+      "features": ["360 Camera", "ADAS Level 2", "HUD", "Bose Sound", "Ventilated Seats"],
+      "service_interval_km": 10000,
+      "popular_in": ["City", "Highway"],
+      "best_for": ["Young professionals", "Tech enthusiasts", "Premium buyers"]
+    },
+    {
+      "id": 8,
+      "name": "Maruti Suzuki Dzire",
+      "brand": "Maruti Suzuki",
+      "segment": "Sedan",
+      "price_lakh": {"min": 6.79, "max": 9.94},
+      "fuel_type": ["Petrol", "CNG"],
+      "mileage_kmpl": {"petrol": 24.12, "cng": 33.0},
+      "engine_cc": 1197,
+      "seating": 5,
+      "transmission": ["Manual", "Automatic"],
+      "features": ["Infotainment", "Rear AC Vents", "Keyless Entry", "ABS", "Airbags"],
+      "service_interval_km": 10000,
+      "popular_in": ["City", "Highway"],
+      "best_for": ["Budget buyers", "Cab operators", "Fuel efficiency seekers"]
+    }
+  ],
+  "common_issues": {
+    "vibration_at_high_speed": {
+      "causes": ["Wheel imbalance", "Tyre wear", "Bent rim", "Suspension issue"],
+      "most_likely": "Wheel balancing issue",
+      "severity": "Medium",
+      "cost_range": "₹300 - ₹1500"
+    },
+    "engine_overheating": {
+      "causes": ["Low coolant", "Radiator leak", "Thermostat failure", "Head gasket issue"],
+      "most_likely": "Low coolant level",
+      "severity": "High",
+      "cost_range": "₹500 - ₹25000"
+    },
+    "hard_braking": {
+      "causes": ["Worn brake pads", "Brake disc warp", "Low brake fluid", "ABS sensor issue"],
+      "most_likely": "Worn brake pads",
+      "severity": "High",
+      "cost_range": "₹1500 - ₹8000"
+    },
+    "ac_not_cooling": {
+      "causes": ["Low refrigerant", "Compressor issue", "Dirty cabin filter", "Condenser blockage"],
+      "most_likely": "Low refrigerant",
+      "severity": "Low",
+      "cost_range": "₹800 - ₹5000"
+    },
+    "battery_drain": {
+      "causes": ["Old battery", "Alternator failure", "Parasitic drain", "Loose terminals"],
+      "most_likely": "Old battery (>3 years)",
+      "severity": "Medium",
+      "cost_range": "₹3000 - ₹12000"
+    }
+  },
+  "service_intervals": {
+    "engine_oil": {"interval_km": 10000, "cost": "₹1500 - ₹3000"},
+    "oil_filter": {"interval_km": 10000, "cost": "₹200 - ₹500"},
+    "air_filter": {"interval_km": 20000, "cost": "₹300 - ₹800"},
+    "cabin_filter": {"interval_km": 15000, "cost": "₹400 - ₹1000"},
+    "spark_plugs": {"interval_km": 30000, "cost": "₹800 - ₹3000"},
+    "brake_pads": {"interval_km": 40000, "cost": "₹1500 - ₹5000"},
+    "coolant": {"interval_km": 40000, "cost": "₹500 - ₹1500"},
+    "transmission_fluid": {"interval_km": 40000, "cost": "₹1000 - ₹3000"},
+    "timing_belt": {"interval_km": 80000, "cost": "₹5000 - ₹15000"},
+    "battery": {"interval_km": 50000, "cost": "₹3000 - ₹12000"}
+  }
+}

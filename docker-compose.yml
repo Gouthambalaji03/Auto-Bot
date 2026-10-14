@@ -1,0 +1,61 @@
+# ─────────────────────────────────────────────────────────────────
+# AutoBot — Full Stack Docker Compose Configuration
+#
+# Runs both PostgreSQL and the AutoBot Web Application
+#
+# Usage:
+#   docker compose up -d --build     ← build & start all services in background
+#   docker compose logs -f app       ← stream application logs
+#   docker compose down              ← stop all services (data preserved)
+#   docker compose down -v           ← stop AND wipe database volume (fresh start)
+# ─────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── PostgreSQL Database ───────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: autobot-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: autobot
+      POSTGRES_PASSWORD: autobot123
+      POSTGRES_DB: autobot_db
+    ports:
+      - "5433:5432"     # Host 5433 maps to container 5432
+    volumes:
+      - autobot_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autobot -d autobot_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── AutoBot Web Application ───────────────────────────────────
+  app:
+    container_name: autobot-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: ["python", "run_all.py"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Connects directly to the 'db' container over the Docker network
+      DATABASE_URL: postgresql://autobot:autobot123@db:5432/autobot_db
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.6-flash}
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+    ports:
+      - "7860:7860"     # Gradio Web UI & Integrated App
+      - "8000:8000"     # Standalone FastAPI (if started via api_server.py)
+    env_file:
+      - path: .env
+        required: false
+
+volumes:
+  autobot_pgdata:
+    driver: local

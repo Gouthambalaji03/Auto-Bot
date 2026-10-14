@@ -1,0 +1,17 @@
+{
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.14",
+  "typeCheckingMode": "off",
+  "include": [
+    "agents",
+    "models",
+    "tools",
+    "db",
+    "ui"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "**/.venv"
+  ]
+}
