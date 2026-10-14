@@ -27,6 +27,7 @@ if sys.platform == "win32" and hasattr(sys.stdout, "buffer"):
     except Exception:
         pass
 
+import os
 from dotenv import load_dotenv
 load_dotenv(override=True)
 
@@ -68,12 +69,18 @@ def create_application() -> FastAPI:
 
 if __name__ == "__main__":
     app = create_application()
-    for port in range(7860, 7870):
-        try:
-            print(f"[AUTOBOT] [STARTUP] Launching server on port {port}...", flush=True)
-            uvicorn.run(app, host="0.0.0.0", port=port, log_level="warning")
-            break
-        except OSError:
-            if port == 7869:
-                raise
-            print(f"[AUTOBOT] [STARTUP] Port {port} is occupied; trying the next port...", flush=True)
+    custom_port = os.getenv("PORT")
+    if custom_port:
+        port = int(custom_port)
+        print(f"[AUTOBOT] [STARTUP] Launching server on custom port {port}...", flush=True)
+        uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
+    else:
+        for port in range(7860, 7870):
+            try:
+                print(f"[AUTOBOT] [STARTUP] Launching server on port {port}...", flush=True)
+                uvicorn.run(app, host="0.0.0.0", port=port, log_level="warning")
+                break
+            except OSError:
+                if port == 7869:
+                    raise
+                print(f"[AUTOBOT] [STARTUP] Port {port} is occupied; trying the next port...", flush=True)

@@ -39,7 +39,7 @@ if __name__ == "__main__":
     configure_logging()
 
     host = os.getenv("API_HOST", "0.0.0.0")
-    port = int(os.getenv("API_PORT", "8000"))
+    port = int(os.getenv("PORT") or os.getenv("API_PORT", "8000"))
 
     import logging
     log = logging.getLogger("autobot.api.server")
