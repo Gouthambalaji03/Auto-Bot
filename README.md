@@ -24,6 +24,8 @@
 - **🗄️ PostgreSQL Persistence & History**: Multi-user authentication (salted PBKDF2-HMAC-SHA256 password hashing), session persistence, and instant conversation reload.
 - **⚡ 5-Minute In-Memory TTL Cache**: Thread-safe in-memory caching (`TTLCache`) eliminates redundant database queries for frequent vehicle catalogue searches (~0ms latency).
 - **🔍 RapidFuzz Fuzzy Fallback Engine**: Uses token-set ratio matching to normalize slang, typos, and natural-language symptoms (e.g. *"car shaking at high speed"*) against catalogued records.
+- **🔄 Hybrid Market Knowledge Fallback**: Seamlessly combines local PostgreSQL showroom inventory with real-world Indian automotive market intelligence. Out-of-catalogue or newly launched models (e.g., 2024/2025+ EV SUVs like Tata Punch EV, Tata Curvv EV, Mahindra XUV400) are gracefully recommended in standard Card View rather than encountering abrupt refusal messages.
+- **📊 Automated Production Evals Suite**: Curated golden benchmark suite (`evals/`) evaluating critical safety triage ("do not drive"), loan EMI tool precision, intent routing, and HTML car card compliance with automated JSON & Markdown reporting.
 - **🌐 Dual Server Support**: Run the complete Gradio Web UI (`:7860`), standalone FastAPI server (`:8000`), or both via Docker Compose.
 
 ---
@@ -107,6 +109,12 @@ Auto-Bot/
 ├── data/
 │   └── seed.json               # Curated Indian automotive seed database
 │
+├── evals/                      # ── Production Evaluation Framework ─────────────────
+│   ├── dataset.json            # Curated golden benchmark queries (safety, finance, buying, etc.)
+│   ├── metrics.py              # Evaluators for safety triage, tool calling, and card DOM
+│   ├── runner.py               # Benchmark CLI runner with scorecard dashboard
+│   └── reports/                # Timestamped JSON and Markdown evaluation run reports
+│
 ├── scripts/
 │   ├── docker-entrypoint.sh    # Docker entrypoint (auto-migration & service execution)
 │   └── smoke_test.sh           # End-to-end API & UI smoke test suite
@@ -116,6 +124,7 @@ Auto-Bot/
     ├── test_api.py             # FastAPI endpoint integration tests
     ├── test_cards.py           # Car Recommendation Card View formatting tests
     ├── test_emi.py             # Loan EMI mathematical precision tests
+    ├── test_evals.py           # Evals dataset and metric assertion tests
     └── test_fuzzy.py           # RapidFuzz synonym & diagnostic matching tests
 ```
 
@@ -297,6 +306,39 @@ chmod +x scripts/smoke_test.sh
 
 ---
 
+## 📊 Production Evaluation Suite (Evals)
+
+AutoBot incorporates a dedicated automotive AI evaluation framework to benchmark model reliability, safety guardrails, deterministic arithmetic, and UI card compliance across production deployments.
+
+### Core Evaluation Pillars:
+1. **🚨 Safety Triage Guardrails**: Verifies that severe drivability hazards (brake failure, fuel leaks, steering loss) reliably trigger immediate *"do not drive"* triage warnings and tow-truck recommendations.
+2. **💰 Deterministic Loan EMI Arithmetic**: Asserts that financial queries invoke the `calculate_loan_emi` tool with exact integer INR amounts rather than performing mental math.
+3. **🏷️ Car Card DOM Generation**: Tests whether recommended vehicles parse cleanly through `format_car_recommendation_cards` and produce responsive `<div class="car-card">` HTML structures.
+4. **🔍 Diagnostic & Service Intervals**: Evaluates symptom triage and service schedule matching against verified database records and RapidFuzz fallbacks.
+5. **🔄 Hybrid Market Knowledge Fallback**: Validates that queries for uncatalogued or 2024/2025+ vehicle releases gracefully return structured recommendations without encountering refusals.
+
+### Running Benchmarks:
+```bash
+# Run the complete evaluation suite
+python -m evals.runner
+
+# Run targeted domain evaluations
+python -m evals.runner --category safety       # Critical safety triage tests
+python -m evals.runner --category finance      # Loan EMI calculation precision
+python -m evals.runner --category buying       # Car recommendation card checks
+python -m evals.runner --category diagnostics  # Common issue symptom matching
+
+# Run automated CI/CD unit tests (runs with pytest or unittest)
+python -m unittest tests/test_evals.py
+```
+
+### Automated Reporting:
+Every evaluation run prints a terminal scorecard and saves structured reports to `evals/reports/`:
+- **`eval_report_<timestamp>.json`**: Detailed per-test telemetry, latency, tools called, and metric scores for CI/CD tracking.
+- **`eval_report_<timestamp>.md`**: Markdown tables formatted for GitHub Pull Request summaries.
+
+---
+
 ## ⚙️ Environment Variables
 
 All settings are configured via `.env` or system environment variables:
@@ -305,8 +347,9 @@ All settings are configured via `.env` or system environment variables:
 |:---|:---:|:---:|:---|
 | `GEMINI_API_KEY` | **Yes** | — | Google AI Studio Gemini API Key |
 | `DATABASE_URL` | **Yes** | — | PostgreSQL connection URI (`postgresql://user:pass@host:port/db`) |
-| `GEMINI_MODEL` | No | `gemini-3.6-flash` | Gemini model variant |
-| `API_PORT` | No | `8000` | Port for FastAPI REST/SSE server |
+| `GEMINI_MODEL` | No | `gemini-2.5-flash` | Gemini model variant (`gemini-2.5-flash`, `gemini-2.0-flash`, `gemini-3.6-flash`) |
+| `PORT` | No | `7860` | Dynamic port assignment for cloud platforms (Render, Railway, Hugging Face) |
+| `API_PORT` | No | `8000` | Port for standalone FastAPI REST/SSE server |
 | `API_HOST` | No | `0.0.0.0` | Host binding for FastAPI server |
 | `CORS_ORIGINS` | No | `*` | Allowed CORS origins (comma-separated for production) |
 | `LOG_LEVEL` | No | `INFO` | Application log level (`DEBUG`, `INFO`, `WARNING`, `ERROR`) |
